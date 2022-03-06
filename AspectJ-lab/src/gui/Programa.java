@@ -44,7 +44,7 @@ public class Programa {
 						System.out.println("Informe o valor a ser creditado:");
 						valor = Util.readDbl();
 						fachada.creditar(numero, valor);
-						System.out.println("Credito efetivado com sucesso");
+//						System.out.println("Credito efetivado com sucesso");
 						break;
 					case 3 :
 						System.out.println("Informe o numero da conta:");
@@ -52,7 +52,7 @@ public class Programa {
 						System.out.println("Informe o valor a ser debitado:");
 						valor = Util.readDbl();
 						fachada.debitar(numero, valor);
-						System.out.println("Debito efetivado com sucesso");
+//						System.out.println("Debito efetivado com sucesso");
 						break;
 					case 4 :
 						System.out.println(
@@ -65,8 +65,8 @@ public class Programa {
 							"Informe o valor a ser transferido:");
 						valor = Util.readDbl();
 						fachada.transferir(numero, numeroAux, valor);
-						System.out.println(
-							"Transferencia realizada com sucesso");
+//						System.out.println(
+//							"Transferencia realizada com sucesso");
 						break;
 					case 5 :
 						System.out.println("Informe o numero da conta:");

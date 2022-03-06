@@ -12,6 +12,8 @@ public aspect Precondicoes {
 		if (valor > 0) {
 			proceed(valor, c);
 			System.out.println("Creditar valor: R$ " + valor);
+		} else {
+			System.out.println("Valor não pode ser creditado!");
 		}
 	}
 	
@@ -20,9 +22,14 @@ public aspect Precondicoes {
 		call(void Conta.debitar(..)) && target(c) && args(valor);
 	
 	void around(double valor, Conta c) : pcDebitar(valor, c) {
-		if (valor > 0 && c.getSaldo() >= valor) {
+		double saldo = c.getSaldo();
+		if (saldo < valor) {
+			System.out.println("Saldo insuficiente!");
+		} else if (valor > 0) {
 			proceed(valor, c);
 			System.out.println("Debitar valor: R$ " + valor);			
+		} else {
+			System.out.println("Valor não pode ser debitado!");
 		}
 	}
 	
@@ -34,9 +41,14 @@ public aspect Precondicoes {
 		pcTransferir(numeroContaOrigem, numeroContaDestino, valor, c) {
 		try {
 			Conta contaOrigem = c.getContas().procurar(numeroContaOrigem);
+			double saldoContaOrigem = contaOrigem.getSaldo();
 			
-			if (valor > 0 && contaOrigem != null && contaOrigem.getSaldo() >= valor) {
+			if (valor > 0 && contaOrigem != null && saldoContaOrigem >= valor) {
 				proceed(numeroContaOrigem, numeroContaDestino, valor, c);
+			} else if (valor < 0) {
+				System.out.println("Valor não pode ser transferido!");
+			} else if (saldoContaOrigem < valor) {
+				System.out.println("Saldo insuficiente!");
 			}
 		} catch (ContaNaoEncontradaException error) {
 			error.printStackTrace();
